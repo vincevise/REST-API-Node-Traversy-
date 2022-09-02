@@ -5,6 +5,7 @@ const Goal = require('../models/goalModel')
  
 
 const getGoals =asyncHandler( async (req,res)=>{
+    // get from database
     const goals = await Goal.find()
     res.status(200).json(goals) 
 })
@@ -15,6 +16,7 @@ const setGoal = asyncHandler(async (req,res)=>{
         throw new Error("Please add a text field")  
      }
 
+     // post to the database
      const goal = await Goal.create({
         text:req.body.text 
      })
@@ -23,6 +25,7 @@ const setGoal = asyncHandler(async (req,res)=>{
 
 const updateGoal = asyncHandler(async (req,res)=>{
 
+    // get the item from the database
     const goal = await Goal.findById(req.params.id)
 
     if(!goal){
@@ -30,6 +33,7 @@ const updateGoal = asyncHandler(async (req,res)=>{
         throw new Error('Goal not found')
     }
 
+    // update in data base
     const updatedGoal = await Goal.findByIdAndUpdate(req.params.id,req.body,{
         new:true,
     })
